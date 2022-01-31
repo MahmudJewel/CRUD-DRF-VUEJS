@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+<section id="addTask">
+  <div class="container d-flex justify-content-center">
+    <div class="row">
+      <br />
+      <br />
+      <h2 class="text-center text-primary">Student Form</h2>
+      <form action="">
+        {% csrf_token %}
+      <div class="col-md-12 shadow m-3">
+        <div class="input-group m-2 p-2">
+          <span class="input-group-text">Name: </span>
+          <input
+            type="text"
+            class="form-control"
+            required
+            v-model="newName"
+          />
+        </div>
+
+        <div class="input-group m-2 p-2">
+          <span class="input-group-text">ID: </span>
+          <input
+            type="text"
+            class="form-control"
+            required
+            v-model="newID"
+          />
+        </div>
+
+        <div class="input-group m-2 p-2">
+          <span class="input-group-text">Varsity: </span>
+          <input
+            type="text"
+            class="form-control"
+            required
+            v-model="newVarsity"
+          />
+        </div>
+        <div class="text-center m-4">
+          <button class="btn btn-primary text-center" type="submit" @click="addTask()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+  <!-- vuejs 3  -->
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <!-- vuejs 2  -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- axios  -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- external js  -->
+  <script src="{% static 'js/vue.js' %}"></script>
+</section>
+{% endblock %}
