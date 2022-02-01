@@ -8,10 +8,7 @@ new Vue({
   data: function () {
     return {
         allTasks: [],
-        newTask: false, // for edit on same place
-      //   newTaskValue: "", // for edit on same place
-      //   editId: null, // for edit on same place
-      //   oldTask: {}, // for edit on same place
+        newTask: false,
     };
   },
   methods: {
@@ -25,20 +22,21 @@ new Vue({
         .catch((error) => console.log(error));
     },
 
-    // add task 
-    addTask: function () {
-        let newTask = {
-            name: this.newName,
-            sid: this.newID,
-            varsity: this.newVarsity,
+    // delete task 
+    deleteTask: function(id){
+      taskList = [];
+      axios
+      .delete('api/edit/'+id)
+      .then((aa) => {
+        for (let i=0; i<this.allTasks.length; i++){
+          if(this.allTasks[i].id != id){
+            tsk = this.allTasks[i]
+            taskList.push(tsk)
+          }
         }
-        axios
-            .get("/api/list")
-            .then((resp)=>{
-                this.newTask = false;
-                this.allTasks.push(resp.data);
-            })
-            .catch((error)=> console.log(error));
+        this.allTasks=taskList
+      })
+      .catch((error)=> console.log(error));
     },
   },
 
@@ -62,16 +60,6 @@ new Vue({
       };
     },
     methods: {
-      // list all task
-      getTasks: function () {
-        axios
-          .get("/api/list")
-          .then((resp) => {
-            this.allTasks = resp.data;
-          })
-          .catch((error) => console.log(error));
-      },
-  
       // add task 
       addTask: function () {
           let newTask = {
@@ -82,14 +70,16 @@ new Vue({
           axios
               .post("/api/list", newTask)
               .then((resp)=>{
-                  // this.newTask = false;
-                  this.allTasks.push(resp.data);
+                  this.newTask = false;
+                  // this.allTasks.push(resp.data);
               })
               .catch((error)=> console.log(error));
       },
+
     },
+    
   
-    mounted: function () {
-      this.getTasks();
-    },
+    // mounted: function () {
+    //   this.getTasks();
+    // },
   });

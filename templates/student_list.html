@@ -19,7 +19,10 @@
           <td>[[task.name]]</td>
           <td>[[task.sid]]</td>
           <td>[[task.varsity]]</td>
-          <td>ac</td>
+          <td>
+            <a v-bind:href="'update/'+task.id"><img class="options" src="{% static 'img/edit.png' %}"  style="width: 20px; height: 20px;"></a>
+            <img class="options" src="{% static 'img/trash.png' %}" @click="deleteTask(task.id)" style="width: 20px; height: 20px;">
+          </td>
         </tr>
       </tbody>
     </table>
