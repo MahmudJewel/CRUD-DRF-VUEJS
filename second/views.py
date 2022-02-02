@@ -49,3 +49,11 @@ class student_details_class(APIView):
 		st = self.get_object(pk)
 		st.delete()
 		return Response(status = 204)
+
+	def put(self, request, pk): # update
+		st = self.get_object(pk)
+		serializer = studentSerializer(st, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=400) 

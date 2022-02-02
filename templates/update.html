@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% block content %}
-<section id="addTask">
+<section id="update">
   <div class="container d-flex justify-content-center">
     <div class="row">
       <br />
@@ -16,8 +16,10 @@
             type="text"
             class="form-control"
             required
-            v-model="newName"
+
+            v-bind:value="something"
           />
+          <p>[[allTasks.name]]</p>
         </div>
 
         <div class="input-group m-2 p-2">
@@ -28,6 +30,7 @@
             required
             v-model="newID"
           />
+          <p>[[allTasks.sid]]</p>
         </div>
 
         <div class="input-group m-2 p-2">
@@ -38,6 +41,7 @@
             required
             v-model="newVarsity"
           />
+          <p>[[allTasks.varsity]]</p>
         </div>
         <div class="text-center m-4">
           <button class="btn btn-primary text-center" type="submit" @click="addTask()">

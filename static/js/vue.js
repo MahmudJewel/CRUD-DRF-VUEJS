@@ -2,6 +2,7 @@ console.log("connected");
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
+// list, delete, edit 
 new Vue({
   el: "#slist",
   delimiters: ["[[", "]]"],
@@ -9,6 +10,7 @@ new Vue({
     return {
         allTasks: [],
         newTask: false,
+        currentTask: {},
     };
   },
   methods: {
@@ -38,6 +40,16 @@ new Vue({
       })
       .catch((error)=> console.log(error));
     },
+
+    // update 
+    getTaskfromID: function (id) {
+      axios
+      .get('api/edit/'+id)
+      .then((response)=>{
+        this.currentTask = response.data
+      })
+      .catch((error)=>console.log(error));
+    },
   },
 
   mounted: function () {
@@ -45,18 +57,17 @@ new Vue({
   },
 });
 
+// vue for add task 
 new Vue({
     el: "#addTask",
     delimiters: ["[[", "]]"],
     data: function () {
       return {
           allTasks: [],
-          newTask: false, // for edit on same place
-          newName: "", // for edit on same place
+          newTask: false,
+          newName: "",
           newID: "",
           newVarsity: "",
-        //   editId: null, // for edit on same place
-        //   oldTask: {}, // for edit on same place
       };
     },
     methods: {
@@ -71,15 +82,42 @@ new Vue({
               .post("/api/list", newTask)
               .then((resp)=>{
                   this.newTask = false;
-                  // this.allTasks.push(resp.data);
               })
               .catch((error)=> console.log(error));
       },
+    },
+  });
 
+new Vue({
+  el: "#update",
+  delimiters: ["[[", "]]"],
+  data: function () {
+    return {
+        allTasks: [],
+        newName: "", // for edit on same place
+        newID: "",
+        newVarsity: "",
+        pk:"",
+    };
+  },
+
+  methods: {
+    // list all task
+    getTasks: function () {
+      axios
+        .get("/api/edit/"+this.pk)
+        .then((resp) => {
+          this.allTasks = resp.data;
+          console.log('Hello')
+          console.log(resp.data)
+        })
+        .catch((error) => console.log(error));
     },
     
-  
-    // mounted: function () {
-    //   this.getTasks();
-    // },
-  });
+  },
+
+  mounted: function() {
+    this.getTasks();
+  },
+
+});

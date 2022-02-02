@@ -20,7 +20,7 @@
           <td>[[task.sid]]</td>
           <td>[[task.varsity]]</td>
           <td>
-            <a v-bind:href="'update/'+task.id"><img class="options" src="{% static 'img/edit.png' %}"  style="width: 20px; height: 20px;"></a>
+            <a v-bind:href="'update/'+task.id"><img class="options" src="{% static 'img/edit.png' %}" @click="getTaskfromID(task.id)" style="width: 20px; height: 20px;"></a>
             <img class="options" src="{% static 'img/trash.png' %}" @click="deleteTask(task.id)" style="width: 20px; height: 20px;">
           </td>
         </tr>
